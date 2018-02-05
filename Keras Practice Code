@@ -1,0 +1,29 @@
+#Just some basic descriptives on an image data set
+>>> from keras.datasets import fashion_mnist
+Using TensorFlow backend.
+>>> (train_X,train_Y), (test_X,test_Y) = fashion_mnist.load_data()
+>>> import numpy as np
+>>> from keras.utils import to_categorical
+>>> import matplotlib.pyplot as plt
+>>> %matplotlib inline
+  File "<stdin>", line 1
+    %matplotlib inline
+    ^
+SyntaxError: invalid syntax
+>>> print('Training data shape : ', train_X.shape, train_Y.shape)
+Training data shape :  (60000, 28, 28) (60000,)
+>>> print('Testing data shape : ', test_X.shape, test_Y.shape)
+Testing data shape :  (10000, 28, 28) (10000,)
+>>> classes = np.unique(train_Y)
+>>> nClasses = len(classes)
+>>> print('Total number of outputs : ', nClasses)
+Total number of outputs :  10
+>>> print('Output classes : ', classes)
+Output classes :  [0 1 2 3 4 5 6 7 8 9]
+>>> plt.figure(figsize=[5,5])
+<matplotlib.figure.Figure object at 0x00000222BB119780>
+>>> plt.sublplot(121)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: module 'matplotlib.pyplot' has no attribute 'sublplot'
+
