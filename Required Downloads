@@ -1,0 +1,8 @@
+Make sure you have 64-bit Python
+
+Deep Learning Library TensorFlow Download first: 
+https://www.tensorflow.org/install/install_windows
+-I downloaded the CPU only version but you can probably do the GPU
+
+Python package/API that uses Tensorflow at the backend for neural networks: 
+https://keras.io/getting-started/functional-api-guide/
