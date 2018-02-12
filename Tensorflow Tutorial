@@ -1,0 +1,74 @@
+#http://cv-tricks.com/artificial-intelligence/deep-learning/deep-learning-frameworks/tensorflow/tensorflow-tutorial/
+import tensorflow as tf #standard to import as tf
+graph = tf.get_default_graph() #data in tf flows through the "graph" made of tensors and mathematical operations
+graph.get_operations() #function gets a list of all operations
+#operations are nodes, tensors are edges between operation
+a=tf.constant(1.0)
+a
+print(a)
+
+with tf.Session() as sess:
+  print(sess.run(a))
+
+b=tf.Variable(2.0,name="test_var")
+b
+
+init_op = tf.global_variables_initializer()
+with tf.Session() as sess:
+  sess.run(init_op)
+  print(sess.run(b))
+
+graph = tf.get_default_graph()
+for op in graph.get_operations():
+     print(op.name) #prints names of operations
+#Placeholders
+a = tf.placeholder("float")
+b = tf.placeholder("float")
+y = tf.multiply(a, b)
+feed_dict ={a:2,b:3}
+with tf.Session() as sess:
+     print(sess.run(y,feed_dict))
+
+
+#Tutorial Part 2
+
+w=tf.Variable(tf.random_normal([784,10], stddev=0.01))
+b = tf.Variable([10,20,30,40,50,60],name='t')
+with tf.Session() as sess:
+     sess.run(tf.global_variables_initializer())
+     sess.run(tf.reduce_mean(b))
+#ArgMax: gets max value from a tensor along specified axis
+
+a=[[0.1, 0.2, 0.3 ],
+     [20, 2,     3   ]
+   ]
+b=tf.Variable(a,name='b')
+#shows index of max value in each array
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+    sess.run(tf.argmax(b,1))
+
+#Linear Regression Excersice
+
+import numpy as np
+trainX = np.linspace(-1,1,101)
+trainY = 3 * trainX + np.random.randn(*trainX.shape)*0.33
+X = tf.placeholder("float")
+Y = tf.placeholder("float")
+w = tf.Variable(0.0, name="weights")
+y_model = tf.multiply(X, w)
+
+cost = (tf.pow(Y-y_model,2))
+train_op = tf.train.GradientDescentOptimizer(0.01).minimize(cost)
+init= tf.global_variables_initializer()
+with tf.Session() as sess:
+     sess.run(init)
+     for i in range(100):
+             for (x,y) in zip(trainX, trainY):
+                     sess.run(train_op, feed_dict={X: x, Y: y})
+     print(sess.run(w))
+#Initializes all the variables
+
+with tf.Session() as sess:
+     sess.run(init)
+     print(sess.run(w))
