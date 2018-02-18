@@ -1,5 +1,8 @@
 Basic Tensorflow Tutorial: 
 http://cv-tricks.com/artificial-intelligence/deep-learning/deep-learning-frameworks/tensorflow/tensorflow-tutorial/
 
-Keras Tutorial:
+Keras Tutorial for Neural Networks:
 https://rubikscode.net/2018/02/12/implementing-simple-neural-network-using-keras-with-python-example/
+
+Keras Tutorial for ConvNets:
+https://github.com/leriomaggio/deep-learning-keras-tensorflow/blob/master/4.%20Convolutional%20Neural%20Networks/4.2.%20MNIST%20CNN.ipynb
