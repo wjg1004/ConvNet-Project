@@ -9,3 +9,6 @@ https://github.com/leriomaggio/deep-learning-keras-tensorflow/blob/master/4.%20C
 
 Keras ConvNet in 11 lines: 
 http://adventuresinmachinelearning.com/keras-tutorial-cnn-11-lines/
+
+Example of Convnet on keras documentation
+https://keras.io/getting-started/sequential-model-guide/
