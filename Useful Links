@@ -6,3 +6,6 @@ https://rubikscode.net/2018/02/12/implementing-simple-neural-network-using-keras
 
 Keras Tutorial for ConvNets:
 https://github.com/leriomaggio/deep-learning-keras-tensorflow/blob/master/4.%20Convolutional%20Neural%20Networks/4.2.%20MNIST%20CNN.ipynb
+
+Keras ConvNet in 11 lines: 
+http://adventuresinmachinelearning.com/keras-tutorial-cnn-11-lines/
