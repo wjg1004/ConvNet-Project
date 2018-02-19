@@ -1,0 +1,27 @@
+#-------------------------------------------------------------------------------
+# Name:          Image Reading Using OpenCV and Matplotlib
+# Purpose:       Shows how to read,display, and save images using python
+# Last Edit:     02/19/2018
+# Condition:     Working
+#-------------------------------------------------------------------------------
+import numpy as np
+import cv2 as cv
+
+imgpath = "C:\\Users\\wgeit\\Pictures\\Aviary Photos\\dogs.png" #setting path
+img1 = cv.imread(imgpath) #reads image
+cv.imshow('img1',img1)#displays image in window
+
+img2 = cv.imread(imgpath,0) #reads grayscale image
+cv.imshow('img2',img2)
+
+cv.waitKey(0) #waits for keystroke to continue program
+cv.destroyAllWindows() #closes window after keystroke
+
+cv.imwrite('dogs.png',img2) #saves image in working directory
+
+#Shows image using matplotlib and opencv
+from matplotlib import pyplot as plt
+img = cv.imread('dogs.png',0)
+plt.imshow(img,cmap = 'gray', interpolation = 'bicubic')
+plt.xticks([]),plt.yticks([]) #hides tick values
+plt.show()
