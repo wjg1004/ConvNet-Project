@@ -1,7 +1,5 @@
-In [1]:
 import sys
 sys.path.append('c:\\users\\berg\\appdata\\local\\programs\\python\\python36\\lib\\site-packages')
-In [29]:
 %matplotlib inline
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,23 +10,26 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
 from keras.utils import np_utils
-In [41]:
 batch_size = 128
-nb_classes = 10
+nb_classes = 10 # 10 digits from 0 to 9
 
 # input image dimensions
 img_rows, img_cols = 28, 28
 
-# importing data, sample and split train and test
+# importing data, sample and split up train and test data
 (X_train, Y_train), (X_test, Y_test) = mnist.load_data()
 
+# give images into a printable format
 X_test1 = X_test.reshape(X_test.shape[0], 1, img_rows, img_cols)
+             # 1st arg puts each image in a row, 2nd arg is # of channels (1 because it's grey scale)
 X_test1 = X_test1.astype("float32")
 X_test1 /= 255
+            # divides all values by 255 for standardization
 X_train1 = X_train.reshape(X_train.shape[0], 1, img_rows, img_cols)
 X_train1 = X_train1.astype("float32")
 X_train1 /= 255
 
+# give images a format usable by the neural net because keras 2 Convolution2D api is different than keras 1
 X_train = X_train.reshape(X_train.shape[0], img_rows, img_cols, 1)
 X_test = X_test.reshape(X_test.shape[0], img_rows, img_cols, 1)
 X_train = X_train.astype("float32")
@@ -42,51 +43,54 @@ print(X_test.shape[0], 'test samples')
 Y_train = np_utils.to_categorical(Y_train, nb_classes)
 Y_test = np_utils.to_categorical(Y_test, nb_classes)
 print("One hot encoding: {}".format(Y_train[0, :]))
-
 X_train shape: (60000, 28, 28, 1)
 60000 train samples
 10000 test samples
 One hot encoding: [0. 0. 0. 0. 0. 1. 0. 0. 0. 0.]
-In [42]:
 for i in range(9):
         plt.subplot(3, 3, i+1)
         plt.imshow(X_train1[i, 0], cmap='gray')
         plt.axis("off")
 
- 
-In [15]:
-model = Sequential()
+model = Sequential() # allows a stack of layers
 
+# be mindful of new api for keras 2
 model.add(Convolution2D(6, kernel_size=(5), input_shape = (img_rows,img_cols,1), padding='same'))
+            # 6 filters that are square 5*5
 model.add(Activation('relu'))
+            # introduce non-linearity 
 model.add(MaxPooling2D(pool_size=(2,2)))
+            # get max value of 2*2 filters 
 model.add(Convolution2D(16,kernel_size=(5), padding='same'))
 model.add(Activation('relu'))
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Convolution2D(120,kernel_size=(5)))
 model.add(Activation('relu'))
 model.add(Dropout(0.25))
+            # increase 'retgularization and efficiency of output
 
 model.add(Flatten())
 model.add(Dense(84))
+            # 84 neurons
 model.add(Activation('relu'))
 model.add(Dropout(0.5))
 model.add(Dense(10))
 model.add(Activation('softmax'))
-In [16]:
+            # non-linearity that makes the sum of the outputs 1 (probability of the classes 0-9)
+
 model.compile(loss='categorical_crossentropy', optimizer='adadelta', metrics=['accuracy'])
-In [17]:
+            # loss function determines how well the model is doing
+            # based on the loss function output, adadelta reestimates the parameters to reduce loss
 nb_epoch = 2
 
 model.fit(X_train, Y_train,batch_size=batch_size, nb_epoch=nb_epoch, 
            verbose=1, validation_data=(X_test, Y_test))
+            # batch size: number of subsets in partition of the data, only one subset used at a time
+            # epoch: number of times to run through the entire data set
 
 score = model.evaluate(X_test, Y_test,verbose=0)
 print('Test score:', score[0])
 print('Test accuracy:', score[1])
-
-c:\users\berg\appdata\local\programs\python\python36\lib\site-packages\keras\models.py:942: UserWarning: The `nb_epoch` argument in `fit` has been renamed `epochs`.
-  warnings.warn('The `nb_epoch` argument in `fit` '
 
 Train on 60000 samples, validate on 10000 samples
 Epoch 1/2
@@ -95,7 +99,7 @@ Epoch 2/2
 60000/60000 [==============================] - 45s 742us/step - loss: 0.1021 - acc: 0.9712 - val_loss: 0.0456 - val_acc: 0.9859
 Test score: 0.045573932802502534
 Test accuracy: 0.9859
-In [26]:
+
 res = model.predict_classes(X_test[:9])
 plt.figure(figsize=(10,10))
 
@@ -105,5 +109,3 @@ for i in range(9):
     plt.gca().get_xaxis().set_ticks([])
     plt.gca().get_yaxis().set_ticks([])
     plt.ylabel("prediction = %d" % res[i], fontsize=18)
-
- 
