@@ -1,3 +1,5 @@
+Link: http://learnandshare645.blogspot.com/2016/06/feeding-your-own-data-set-into-cnn.html
+
 from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation, Flatten
 from keras.layers.convolutional import Convolution2D, MaxPooling2D
