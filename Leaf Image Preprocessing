@@ -1,0 +1,29 @@
+from keras.models import Sequential
+from keras.layers.core import Dense, Dropout, Activation, Flatten
+from keras.layers.convolutional import Convolution2D, MaxPooling2D
+from keras.optimizers import SGD,RMSprop,adam
+from keras.utils import np_utils
+
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib
+import os
+import tensorflow
+from PIL import Image
+from numpy import *
+
+from sklearn.utils import shuffle
+from sklearn.cross_validation import train_test_split
+
+import skimage
+from skimage import io
+import os
+
+path1 = 'C:\\Users\\wgeit\\Documents\\Leafsnap Data\\dataset\\acer_campestre'
+listing = os.listdir(path1)
+num_samples=size(listing)
+print (num_samples)
+
+im1 = array(Image.open(path1 + '\\'+ listing[0])) # open one image to get size
+m,n = im1.shape[0:2] # get the size of the images
+imnbr = len(listing) # get the number of images
