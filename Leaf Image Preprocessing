@@ -29,3 +29,27 @@ print (num_samples)
 im1 = array(Image.open(path1 + '\\'+ listing[0])) # open one image to get size
 m,n = im1.shape[0:2] # get the size of the images
 imnbr = len(listing) # get the number of images
+
+
+##### put all images into one file and create an array for the corresponding labels #####
+
+new_folder = 'C:\\Users\\Berg\\Desktop\\Leaves' 
+all_leaves_path = 'C:\\Users\\Berg\\Desktop\\lab'
+list_leaves = os.listdir(all_leaves_path)
+num_leaf_types = size(list_leaves)
+labels = []
+
+for leaf_folder in list_leaves:
+    temp_list = os.listdir(all_leaves_path + '\\' + leaf_folder)
+    for leaf_image in temp_list:
+        im = Image.open(all_leaves_path + '\\' + leaf_folder + '\\' + leaf_image)
+        im.save(new_folder + '\\' + leaf_image, "JPEG")
+        labels.append(leaf_folder)
+
+##### attempting to flatten the images, but found out they weren't all the same size #####
+
+from scipy.misc import imread
+imlist = os.listdir(new_folder)
+immatrix = []
+for image in imlist:
+        immatrix.append((imread(new_folder + '\\' + image)).flatten())
