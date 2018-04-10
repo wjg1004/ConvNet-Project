@@ -1,0 +1,12 @@
+#Status: Working
+#currently, once the max value is found, the loop cannot go back if the next max happened earlier
+# creates np.array of top 3 classification probabilities for each leaf type
+pred = model.predict(X_test)
+max_array=np.empty([185,3])
+
+for i in range(185):
+    for k in range(3):
+        for j in range(185):
+            if pred[i,j]==np.max(pred[i]):
+                max_array[i,k]=pred[i,j]
+                pred[i,j]=0
